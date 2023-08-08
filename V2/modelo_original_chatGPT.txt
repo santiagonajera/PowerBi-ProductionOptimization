@@ -1,0 +1,36 @@
+import pulp
+
+# Crear un problema de maximización
+prob = pulp.LpProblem("ATU_Optimization", pulp.LpMaximize)
+
+# Definir las variables de decisión (la cantidad de cada producto a fabricar)
+mesas = pulp.LpVariable("Mesas", lowBound=0, cat='Integer')
+sillas = pulp.LpVariable("Sillas", lowBound=0, cat='Integer')
+pupitres = pulp.LpVariable("Pupitres", lowBound=0, cat='Integer')
+armarios = pulp.LpVariable("Armarios", lowBound=0, cat='Integer')
+librerias = pulp.LpVariable("Librerias", lowBound=0, cat='Integer')
+
+# Definir la función objetivo (maximizar las ganancias)
+prob += 12 * mesas + 5 * sillas + 15 * pupitres + 22 * armarios + 10 * librerias, "Ganancias"
+
+# Definir las restricciones
+prob += 5 * mesas + sillas + 9 * pupitres + 3 * armarios + 12 * librerias <= 1500, "Tableros_Primer_Tipo"
+prob += 2 * mesas + 3 * sillas + 4 * pupitres + 4 * armarios + librerias <= 1200, "Tableros_Segundo_Tipo"
+prob += 3 * armarios + 5 * mesas + 2 * sillas + 4 * pupitres + 6 * librerias <= 1100, "Horas_Mano_Obra"
+prob += mesas >= 20, "Mesas_Minimo"
+prob += sillas >= 100, "Sillas_Minimo"
+prob += pupitres >= 20, "Pupitres_Minimo"
+prob += armarios <= 20, "Armarios_Maximo"
+prob += librerias >= 3, "Librerias_Minimo"
+
+# Resolver el problema
+prob.solve()
+
+# Imprimir los resultados
+print("Cantidad de Mesas a fabricar:", mesas.varValue)
+print("Cantidad de Sillas a fabricar:", sillas.varValue)
+print("Cantidad de Pupitres a fabricar:", pupitres.varValue)
+print("Cantidad de Armarios a fabricar:", armarios.varValue)
+print("Cantidad de Librerias a fabricar:", librerias.varValue)
+
+print("Ganancias totales: $", pulp.value(prob.objective))

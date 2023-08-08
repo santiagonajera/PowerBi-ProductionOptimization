@@ -1,0 +1,39 @@
+import pandas as pd
+
+# Crear el dataframe 'items' con los nombres, requerimientos y cantidades mínimas y máximas de los productos a fabricar
+items_data = {
+    'Producto': ["Mesas", "Sillas", "Pupitres", "Armarios", "Librerias"],
+    'Horas_Mano_Obra': [5, 3, 4, 3, 6],
+    'Tableros_Primer_Tipo': [5, 1, 9, 3, 12],
+    'Tableros_Segundo_Tipo': [2, 3, 4, 4, 1],
+    'Cantidad_Minima': [20, 100, 20, None, 3],
+    'Cantidad_Maxima': [None, None, None, 20, None],
+}
+
+items_df = pd.DataFrame(items_data)
+
+
+#CREA UTILIDADES
+utilidad_data = {
+    'Producto': ["Mesas", "Sillas", "Pupitres", "Armarios", "Librerias"],
+    'Beneficio': [12, 5, 15, 22, 10]
+}
+
+utilidad_df = pd.DataFrame(utilidad_data)
+
+
+# Crear el dataframe 'restricciones' con los nombres y valores de las restricciones
+restricciones_data = {
+    'Restricción': [
+        "Tableros_Primer_Tipo",
+        "Tableros_Segundo_Tipo",
+        "Horas_Mano_Obra",
+    ],
+    'Valor': [
+        1500,
+        1200,
+        1100,
+    ]
+}
+
+restricciones_df = pd.DataFrame(restricciones_data)
